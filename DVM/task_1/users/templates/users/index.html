@@ -1,0 +1,21 @@
+{% extends "users/layout.html" %}
+
+{% block body %}
+
+    <h1>Welcome {{request.user.username}}</h1>
+    
+    <h3>Your buses</h3>
+    <ol>
+        {% for bus in booked_buses %}
+            <li>
+                {{bus}}
+            </li>
+        {% endfor %}
+    </ol>
+
+    <a href = "{%url 'add_bus'%}">Add buses</h3>
+
+    <a href="{% url 'logout' %}">logout</a>
+    
+{% endblock body %}
+

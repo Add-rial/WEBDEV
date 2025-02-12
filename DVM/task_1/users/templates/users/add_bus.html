@@ -1,0 +1,15 @@
+{% extends "users/layout.html" %}
+
+{% block body %}
+
+    <ul>
+        {% for bus in available_buses %}
+
+            <li>{{bus}}</li>
+
+        {% endfor %}
+    </ul>
+
+{% endblock body %}
+
+
