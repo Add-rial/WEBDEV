@@ -4,11 +4,14 @@
 
 
 <div>
-    {% if message %}
+    {% if message != "BOOKING SUCCESSFUL" %}
         <strong style="color: red;">{{ message }}</strong>
-        <br><br><br><br><br><br><br>
+    {% else %}
+        <strong style="color: green;">{{message}}</strong>
     {% endif %}
 </div>
+
+<br><br><br><br><br><br><br>
 
 <div>
 
@@ -45,14 +48,8 @@
 
 </div>
 
-<div>
-
-        <h2><strong style="color: green;">Confirm Booking</strong></h2>
-
-</div>
-
 <p>
-    Return back to <a href = "{% url 'users:index' %}">index page</a>
+    Return back to <a href = "{% url 'users:index' %}">account page</a>
 </p>
 
 {% endblock body %}
