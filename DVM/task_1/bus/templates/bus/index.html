@@ -6,8 +6,7 @@
 <ul>
     {% for bus in buses %}
         <li> 
-            Bus {{bus.id}}: {{bus.origin}} to {{bus.destination}}
-                            {{bus.start_time}}  {{bus.end_time}}
+            <a href = "{% url 'bus_details' bus.id%}">Bus {{bus.id}}: {{bus.origin}} to {{bus.destination}}</a>
         </li>
     {% endfor %}
 </ul>

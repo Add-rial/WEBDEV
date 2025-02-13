@@ -5,7 +5,7 @@
     <ul>
         {% for bus in available_buses %}
 
-            <li>{{bus}}</li>
+            <li><a href = "{% url 'index'%}">{{bus}}</a></li>
 
         {% endfor %}
     </ul>

@@ -1,0 +1,45 @@
+{% extends "users/layout.html" %}
+
+{% block body %}
+<div>
+
+    <p>
+        <strong>Origin: </strong> {{bus_to_show.origin}}
+        <br>
+        <span style="margin: 55px;">{{bus_to_show.origin.description}}</span>
+    </p>
+
+    <p>
+        <strong>Destination: </strong> {{bus_to_show.destination}}
+        <br>
+        <span style="margin: 88px;">{{bus_to_show.destination.description}}</span>
+    </p>
+
+    <p>
+        <strong>Description: </strong> {{bus_to_show.bus_details}}<br>
+        <strong>Registration Number: </strong>{{bus_to_show.registration_number}}
+    </p>
+
+    <p>
+        <strong>Cost per ticket: </strong> {{bus_to_show.cost}}
+    </p>
+
+    <p>
+        <strong>Maximum capacity: </strong> {{bus_to_show.max_capacity}}<br>
+        <strong>Available seats: </strong> {{bus_to_show.available_seats}}
+    </p>
+
+    <p>
+        <strong>Leaving at: </strong> {{bus_to_show.start_time}}<br>
+        <strong>Arriving at: </strong> {{bus_to_show.end_time}}
+    </p>
+
+</div>
+
+<p>
+    Return back to <a href = "/">index page</a>
+</p>
+{% endblock body %}
+
+
+

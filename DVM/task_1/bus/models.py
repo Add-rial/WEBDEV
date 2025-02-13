@@ -23,10 +23,15 @@ class Bus(models.Model):
     
     cost = models.IntegerField(default=500)
     max_capacity = models.IntegerField(default=50)
-    filled_seats = models.IntegerField(null = True, blank=True, default=0)
+    available_seats = models.IntegerField(null = True, blank=True)
     
     start_time = models.DateTimeField(max_length = 32, default=now)
     end_time = models.DateTimeField(max_length = 32, default=now)
+    
+    def save(self, *args, **kwargs):                      
+        if not self.available_seats:                                
+            self.available_seats = self.max_capacity
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.origin} --> {self.destination}"
