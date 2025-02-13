@@ -11,7 +11,7 @@ from bus.models import Bus
 def index(request):
     if not request.user.is_authenticated:
         #print("1")
-        return HttpResponseRedirect(reverse("login"))
+        return HttpResponseRedirect(reverse("users:login"))
     
     passenger = Passenger.objects.filter(booked_under=request.user).first()
     booked_buses = passenger.booked_buses.all() if passenger else []
@@ -29,7 +29,7 @@ def login_view(request):
         
         if user:
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('users:index'))
         
         return render(request, 'users/login.html', {
             "message": "Invalid credentials"
@@ -44,7 +44,7 @@ def logout_view(request):
     
 def available_buses(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("login"))
+        return HttpResponseRedirect(reverse("users:login"))
     
     passenger = Passenger.objects.filter(booked_under=request.user).first()
     booked_buses = passenger.booked_buses.all() if passenger else []
@@ -56,7 +56,7 @@ def available_buses(request):
     
 def book_bus(request, bus_id):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse('users:login'))
 
     if bus_id:      
         bus = Bus.objects.get(pk = bus_id)
