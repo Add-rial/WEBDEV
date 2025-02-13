@@ -1,4 +1,4 @@
-{% extends "users/layout.html" %}
+{% extends "bus/layout.html" %}
 
 {% block body %}
 <div>
@@ -36,8 +36,20 @@
 
 </div>
 
+<div>
+
+    <p>
+        
+        <strong style = "red";>
+            <a href = "{% url 'users:book_bus' bus_to_show.id %}">Book this bus</a>
+        </strong>
+
+    </p>
+
+</div>
+
 <p>
-    Return back to <a href = "/">index page</a>
+    Return back to <a href = "{% url 'index' %}">index page</a>
 </p>
 {% endblock body %}
 

@@ -1,0 +1,61 @@
+{% extends "users/layout.html" %}
+
+{% block body %}
+
+
+<div>
+    {% if message %}
+        <strong style="color: red;">{{ message }}</strong>
+        <br><br><br><br><br><br><br>
+    {% endif %}
+</div>
+
+<div>
+
+    <p>
+        <strong>Origin: </strong> {{bus_to_book.origin}}
+        <br>
+        <span style="margin: 55px;">{{bus_to_book.origin.description}}</span>
+    </p>
+
+    <p>
+        <strong>Destination: </strong> {{bus_to_book.destination}}
+        <br>
+        <span style="margin: 88px;">{{bus_to_book.destination.description}}</span>
+    </p>
+
+    <p>
+        <strong>Description: </strong> {{bus_to_book.bus_details}}<br>
+        <strong>Registration Number: </strong>{{bus_to_book.registration_number}}
+    </p>
+
+    <p>
+        <strong>Cost per ticket: </strong> {{bus_to_book.cost}}
+    </p>
+
+    <p>
+        <strong>Maximum capacity: </strong> {{bus_to_book.max_capacity}}<br>
+        <strong>Available seats: </strong> {{bus_to_book.available_seats}}
+    </p>
+
+    <p>
+        <strong>Leaving at: </strong> {{bus_to_book.start_time}}<br>
+        <strong>Arriving at: </strong> {{bus_to_book.end_time}}
+    </p>
+
+</div>
+
+<div>
+
+        <h2><strong style="color: green;">Confirm Booking</strong></h2>
+
+</div>
+
+<p>
+    Return back to <a href = "{% url 'users:index' %}">index page</a>
+</p>
+
+{% endblock body %}
+
+
+

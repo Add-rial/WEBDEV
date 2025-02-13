@@ -42,7 +42,7 @@ def logout_view(request):
         "message": "Logged out"
     })        
     
-def add_bus(request):
+def available_buses(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     
@@ -50,6 +50,23 @@ def add_bus(request):
     booked_buses = passenger.booked_buses.all() if passenger else []
     buses = Bus.objects.exclude(id__in=booked_buses.values_list('id', flat=True))
     
-    return render(request, 'users/add_bus.html', {
+    return render(request, 'users/available_buses.html', {
         "available_buses": buses
+    })
+    
+def book_bus(request, bus_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+
+    if bus_id:      
+        bus = Bus.objects.get(pk = bus_id)
+        if bus.available_seats == 0:
+            return render(request, 'users/book_bus.html', {
+                "message": "NO AVAILABLE SEATS"
+            })
+        else:
+            pass
+        
+    return render(request, "users/book_bus.html", {
+        "bus_to_book": bus
     })

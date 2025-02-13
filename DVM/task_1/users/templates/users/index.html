@@ -13,9 +13,9 @@
         {% endfor %}
     </ol>
 
-    <a href = "{%url 'add_bus'%}">Add buses</h3>
+    <a href = "{%url 'users:available_buses'%}">Add buses</h3>
 
-    <a href="{% url 'logout' %}">logout</a>
+    <a href="{% url 'users:logout' %}">logout</a>
     
 {% endblock body %}
 
