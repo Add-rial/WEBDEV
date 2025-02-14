@@ -68,10 +68,18 @@ def book_bus(request, bus_id):
         return render(request, 'users/book_bus.html', {
             "bus_to_book": current_bus,
             "message": "NO AVAILABLE SEATS"
+        }) 
+    elif request.user.wallet < current_bus.cost:
+        return render(request, "users/book_bus.html", {
+            "bus_to_book": current_bus,
+            "message": "NOT ENOUGH MONEY, GET BETTER LOSER"
         })
     else:
         p = Passenger(booked_by=request.user, bus=current_bus)
         p.save()
+        
+        request.user.wallet -= current_bus.cost
+        request.user.save()
         
         current_bus.available_seats = current_bus.available_seats - 1
         current_bus.save()

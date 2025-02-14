@@ -1,0 +1,15 @@
+Done...1.Add view bus details functionality in the user app when the user has logged in and is on the users/index.html page. 
+Done...3.Implement a wallet field in the passenger model that is associated with the user(technically the wallet must be associated with the user and not the passenger)
+Done...2.Add bus booking functionality and only then move onto adding bus search functionality. 
+Done...5.Deduct cost from the wallet and if there isn�t enough money in wallet give valid prompts 
+Done...4.Update available_seats whenever a bus is booked 
+6.Add server side functionality for the admin to look at all the passengers associated with a certain bus. 
+
+
+Add functionality for user to login from the main index page 
+Add functionality for a new user to create an account 
+Let the user enter the name of the passenger while they are booking a bus 
+Change debug = false when you finally submit the file
+Change the book_bus function to return to the index page in case the user refreshes and the book is booked again.
+Decreasing the number of available seats when booking a seat from the admin view
+How to really use related_names in many to many fields

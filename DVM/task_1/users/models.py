@@ -15,3 +15,5 @@ class Passenger(models.Model):
     
     def __str__(self):
         return f'Name: {self.name}, Bus: {self.bus}'
+
+User.add_to_class('wallet', models.IntegerField(blank=True, null=True, default=20000))
