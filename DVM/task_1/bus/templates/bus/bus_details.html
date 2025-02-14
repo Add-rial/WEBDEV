@@ -38,6 +38,7 @@
 
 <div>
 
+    {% if not message %}
     <p>
         
         <strong style = "red";>
@@ -45,11 +46,18 @@
         </strong>
 
     </p>
+    {% endif %}
 
 </div>
 
 <p>
-    Return back to <a href = "{% url 'index' %}">index page</a>
+    {% if message %}
+        Return back to <a href = "{% url 'users:index' %}">index page</a>
+    {% else %}
+        Return back to <a href = "{% url 'bus:index' %}">index page</a>
+    {% endif %}
+
+    
 </p>
 {% endblock body %}
 

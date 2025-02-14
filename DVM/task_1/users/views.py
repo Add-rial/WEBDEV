@@ -16,14 +16,15 @@ def index(request):
         return HttpResponseRedirect(reverse("users:login"))
     
     buses = Bus.objects.filter(passengers__booked_by=request.user).distinct()
-    bus_names = []
+    bus_names = {}
     for bus in buses:
-        p = bus .passengers.filter(booked_by=request.user)
+        p = bus.passengers.filter(booked_by=request.user)
         names = [ f'{x.name}' for x in p]
-        bus_names.append(f'{bus}--------Booked For: {names}')
+        bus_names[bus.id] = (f'{bus}-------->Booked For: {names}')
     
     return render(request, 'users/index.html', {
-        "booked_buses": bus_names
+        "booked_buses": bus_names.items(), 
+        
     })
 
 def login_view(request):
@@ -78,3 +79,4 @@ def book_bus(request, bus_id):
             "bus_to_book": current_bus,
             "message": "BOOKING SUCCESSFUL"
         })
+        

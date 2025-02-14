@@ -6,9 +6,9 @@
     
     <h3>Your buses</h3>
     <ol>
-        {% for bus in booked_buses %}
+        {% for key, value in booked_buses %}
             <li>
-                {{bus}}
+                <a href="{% url 'bus:bus_details' key 'from users'%}">{{value}}</a>
             </li>
         {% endfor %}
     </ol>
