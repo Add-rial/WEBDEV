@@ -5,7 +5,6 @@ from django import forms
 
 from .models import Passenger
 
-@admin.register(Passenger)
 class AdminPassenger(admin.ModelAdmin):
     list_display = ('name', 'booked_by', 'bus')
     search_fields = ('name', 'booked_by', 'bus')
@@ -32,3 +31,5 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+
+admin.site.register(Passenger, AdminPassenger)
