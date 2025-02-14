@@ -15,9 +15,7 @@ def index(request):
         #print("1")
         return HttpResponseRedirect(reverse("users:login"))
     
-    #passengers = Passenger.objects.filter(booked_by=request.user)
-    
-    buses = Bus.objects.filter(passengers__booked_by=request.user)
+    buses = Bus.objects.filter(passengers__booked_by=request.user).distinct()
     bus_names = []
     for bus in buses:
         p = bus .passengers.filter(booked_by=request.user)
