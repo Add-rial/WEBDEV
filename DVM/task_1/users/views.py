@@ -7,18 +7,25 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import F
 
 from bus.models import Bus
+from .models import *
 
 # Create your views here.
-def index(request):
+def index(request): 
     if not request.user.is_authenticated:
         #print("1")
         return HttpResponseRedirect(reverse("users:login"))
     
-    booked_buses = request.user.booked_buses.all()
-    print(booked_buses)
+    #passengers = Passenger.objects.filter(booked_by=request.user)
+    
+    buses = Bus.objects.filter(passengers__booked_by=request.user)
+    bus_names = []
+    for bus in buses:
+        p = bus .passengers.filter(booked_by=request.user)
+        names = [ f'{x.name}' for x in p]
+        bus_names.append(f'{bus}--------Booked For: {names}')
     
     return render(request, 'users/index.html', {
-        "booked_buses": booked_buses
+        "booked_buses": bus_names
     })
 
 def login_view(request):
@@ -47,8 +54,7 @@ def available_buses(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("users:login"))
     
-    booked_buses = request.user.booked_buses.all()
-    buses = Bus.objects.exclude(id__in=booked_buses.values_list('id', flat=True))
+    buses = Bus.objects.all()
     
     return render(request, 'users/available_buses.html', {
         "available_buses": buses
@@ -58,17 +64,19 @@ def book_bus(request, bus_id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('users:login'))
   
-    bus = Bus.objects.get(pk = bus_id)
-    if bus.available_seats == 0:
+    current_bus = Bus.objects.get(pk = bus_id)
+    if current_bus.available_seats == 0:
         return render(request, 'users/book_bus.html', {
-            "bus_to_book": bus,
+            "bus_to_book": current_bus,
             "message": "NO AVAILABLE SEATS"
         })
     else:
-        request.user.booked_buses.add(bus)
-        bus.available_seats -= F('available_seats')      #To manage two people booking the last seats together 
-        bus.save(update_fields=['available_seats'])
+        p = Passenger(booked_by=request.user, bus=current_bus)
+        p.save()
+        
+        current_bus.available_seats = current_bus.available_seats - 1
+        current_bus.save()
         return render(request, 'users/book_bus.html', {
-            "bus_to_book": bus,
+            "bus_to_book": current_bus,
             "message": "BOOKING SUCCESSFUL"
         })
