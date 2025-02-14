@@ -41,8 +41,11 @@
     {% if not message %}
     <p>
         
-        <strong style = "red";>
-            <a href = "{% url 'users:book_bus' bus_to_show.id %}">Book this bus</a>
+        <strong style="color: red;">
+            <form action="{% url 'users:book_bus_redirect' bus_to_show.id %}" method="get">
+                Book this bus for <input type="text" name="name" required>
+                <button type="submit">Submit</button>
+            </form>
         </strong>
 
     </p>

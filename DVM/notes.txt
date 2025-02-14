@@ -8,7 +8,7 @@ Done...4.Update available_seats whenever a bus is booked
 
 Add functionality for user to login from the main index page 
 Add functionality for a new user to create an account 
-Let the user enter the name of the passenger while they are booking a bus 
+Done...Let the user enter the name of the passenger while they are booking a bus 
 Change debug = false when you finally submit the file
 Change the book_bus function to return to the index page in case the user refreshes and the book is booked again.
 Decreasing the number of available seats when booking a seat from the admin view

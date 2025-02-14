@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -12,7 +13,6 @@ from .models import *
 # Create your views here.
 def index(request): 
     if not request.user.is_authenticated:
-        #print("1")
         return HttpResponseRedirect(reverse("users:login"))
     
     buses = Bus.objects.filter(passengers__booked_by=request.user).distinct()
@@ -21,10 +21,10 @@ def index(request):
         p = bus.passengers.filter(booked_by=request.user)
         names = [ f'{x.name}' for x in p]
         bus_names[bus.id] = (f'{bus}-------->Booked For: {names}')
-    
-    return render(request, 'users/index.html', {
-        "booked_buses": bus_names.items(), 
+
         
+    return render(request, 'users/index.html', {
+        "booked_buses": bus_names.items()
     })
 
 def login_view(request):
@@ -59,7 +59,11 @@ def available_buses(request):
         "available_buses": buses
     })
     
-def book_bus(request, bus_id):
+def book_bus_redirect(request, bus_id):
+    name = request.GET.get('name')
+    return redirect('users:book_bus', bus_id, name)    
+
+def book_bus(request, bus_id, name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('users:login'))
   
@@ -75,7 +79,7 @@ def book_bus(request, bus_id):
             "message": "NOT ENOUGH MONEY, GET BETTER LOSER"
         })
     else:
-        p = Passenger(booked_by=request.user, bus=current_bus)
+        p = Passenger(booked_by=request.user, bus=current_bus, name = name)
         p.save()
         
         request.user.wallet -= current_bus.cost
@@ -83,8 +87,5 @@ def book_bus(request, bus_id):
         
         current_bus.available_seats = current_bus.available_seats - 1
         current_bus.save()
-        return render(request, 'users/book_bus.html', {
-            "bus_to_book": current_bus,
-            "message": "BOOKING SUCCESSFUL"
-        })
+        return HttpResponseRedirect(reverse("users:index"))
         
