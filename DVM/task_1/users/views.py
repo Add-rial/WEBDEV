@@ -80,12 +80,9 @@ def book_bus(request, bus_id, name):
         })
     else:
         p = Passenger(booked_by=request.user, bus=current_bus, name = name)
-        p.save()
+        p.save()                                       #available seats updated while saving Passenger object
         
         request.user.wallet -= current_bus.cost
         request.user.save()
-        
-        current_bus.available_seats = current_bus.available_seats - 1
-        current_bus.save()
         return HttpResponseRedirect(reverse("users:index"))
         

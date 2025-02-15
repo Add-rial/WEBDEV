@@ -11,6 +11,9 @@ class Passenger(models.Model):
     def save(self, *args, **kwargs):
         if not self.name:
             self.name = self.booked_by.username
+        if not self.pk:
+            self.bus.available_seats -= 1
+            self.bus.save()
         super().save(*args, **kwargs)
     
     def __str__(self):
